@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, CanLoad } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationSecurityService implements CanActivate
+export class AuthenticationSecurityService implements CanActivate, CanLoad
 {
   constructor(private authService: AuthenticationService)
   {}
@@ -14,5 +15,10 @@ export class AuthenticationSecurityService implements CanActivate
   canActivate(): Observable<boolean>
   {
     return this.authService.existAuthetification();
+  }
+
+  canLoad(): Observable<boolean>
+  {
+    return this.authService.existAuthetification().pipe(take(1));
   }
 }

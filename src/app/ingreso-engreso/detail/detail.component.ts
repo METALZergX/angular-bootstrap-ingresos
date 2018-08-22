@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../redux/interfaces/appstate.interface';
+import { AppState, ExpenseAppState } from '../../redux/interfaces/appstate.interface';
 import { Income } from '../../models/expense.model';
 import { Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
@@ -17,7 +17,7 @@ export class DetailComponent implements OnInit, OnDestroy
   listExpenses: Income[] = [];
   private detailObserver: Subscription = new Subscription;
 
-  constructor(private store: Store<AppState>, private expenseService: ExpensesService)
+  constructor(private store: Store<ExpenseAppState>, private expenseService: ExpensesService) //AppState
   {}
 
   ngOnInit()

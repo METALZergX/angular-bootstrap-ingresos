@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState } from '../../redux/interfaces/appstate.interface';
+import { AppState, ExpenseAppState } from '../../redux/interfaces/appstate.interface';
 import { Subscription } from 'rxjs';
 import { Income } from '../../models/expense.model';
 import { filter } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class StatisticsComponent implements OnInit, OnDestroy
 
   statisticSubscription: Subscription = new Subscription();
 
-  constructor(private store: Store<AppState>)
+  constructor(private store: Store<ExpenseAppState>) //AppState
   {}
 
   ngOnInit()

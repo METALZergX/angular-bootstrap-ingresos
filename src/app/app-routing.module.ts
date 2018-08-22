@@ -8,9 +8,10 @@ import { DashboardRoutes } from './dashboard/dashboard.routes';
 import { AuthenticationSecurityService } from './services/authentication-security.service';
 
 const RouteApp: Routes = [
-    { path: '', component: DashboardComponent, children: DashboardRoutes, canActivate: [AuthenticationSecurityService] },
+    //{ path: '', component: DashboardComponent, children: DashboardRoutes, canActivate: [AuthenticationSecurityService] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: '', loadChildren: './modules/expense.module', canLoad: [AuthenticationSecurityService] }, // LazyLoad -> use this when a class does not default './modules/expense.module#ExpenseModule'
     { path: '**', redirectTo: '' }
 ];
 

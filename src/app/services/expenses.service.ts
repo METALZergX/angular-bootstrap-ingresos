@@ -5,7 +5,7 @@ import { AuthenticationService } from './authentication.service';
 import { User } from '../models/user.model';
 import { Income } from '../models/expense.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../redux/interfaces/appstate.interface';
+import { AppState, ExpenseAppState } from '../redux/interfaces/appstate.interface';
 import { filter, map, concatAll } from 'rxjs/operators';
 import { SetIncomeAction, UnsetIncomeAction } from '../redux/actions/expense.action';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ export class ExpensesService
   private storeObservers: Subscription = new Subscription;
   private fireStoreObservers: Subscription = new Subscription;
   
-  constructor(private fireStore: AngularFirestore, private authService: AuthenticationService, private store: Store<AppState>)
+  constructor(private fireStore: AngularFirestore, private authService: AuthenticationService, private store: Store<ExpenseAppState>) // AppState
   {}
 
   initExpenseListener()
