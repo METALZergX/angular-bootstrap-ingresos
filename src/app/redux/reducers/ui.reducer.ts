@@ -1,4 +1,4 @@
-import { ACTIVE_LOAD, INACTIVE_LOAD } from "../accions/ui.accion";
+import { ACTIVE_LOAD, INACTIVE_LOAD } from "../actions/ui.action";
 import { Action } from "@ngrx/store";
 import { UserInterface } from "../interfaces/ui.interface";
 

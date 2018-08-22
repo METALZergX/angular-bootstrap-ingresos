@@ -9,6 +9,7 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { AppRoutingModule } from './app-routing.module';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -23,6 +24,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 import { environment } from '../environments/environment';
 import { ReducerInterface } from './redux/interfaces/appstate.interface';
+import { DetailPipe } from './pipes/detail.pipe';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,15 @@ import { ReducerInterface } from './redux/interfaces/appstate.interface';
     DetailComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    DetailPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AppState } from '../../redux/interfaces/appstate.interface';
-import { ActiveLoaderAction, InactiveLoaderAction } from '../../redux/accions/ui.accion';
+import { ActiveLoaderAction, InactiveLoaderAction } from '../../redux/actions/ui.action';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ import { ActiveLoaderAction, InactiveLoaderAction } from '../../redux/accions/ui
 export class LoginComponent implements OnInit, OnDestroy
 {
   loadingState: boolean;
-  subscriptionState: Subscription;
+  subscriptionState: Subscription = new Subscription();
 
   constructor(private authService: AuthenticationService, private routeApp: Router, private store: Store<AppState>)
   {}

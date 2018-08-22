@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 
 import { User } from '../../models/user.model';
 import { AppState } from '../../redux/interfaces/appstate.interface';
-import { ActiveLoaderAction, InactiveLoaderAction } from '../../redux/accions/ui.accion';
+import { ActiveLoaderAction, InactiveLoaderAction } from '../../redux/actions/ui.action';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit, OnDestroy
 {
   loadingState: boolean;
-  subscriptionState: Subscription;
+  subscriptionState: Subscription = new Subscription();
 
   constructor(private authService: AuthenticationService, private routeApp: Router, private fireStore: AngularFirestore, private store: Store<AppState>)
   {}

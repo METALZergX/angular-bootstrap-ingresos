@@ -7,7 +7,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { User } from '../models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../redux/interfaces/appstate.interface';
-import { SetAccountAction } from '../redux/accions/auth.accion';
+import { SetAccountAction, UnsetAccountAction } from '../redux/actions/auth.action';
 import { Subscription } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class AuthenticationService
 {
+  private userActive: User;
   private loginObserver: Subscription = new Subscription;
 
   constructor(private fireAuth: AngularFireAuth, private routerApp: Router, private fireStore: AngularFirestore, private store: Store<AppState>)
@@ -25,11 +26,11 @@ export class AuthenticationService
     this.loginObserver = this.fireAuth.authState.subscribe(stateAuth => {
       if(stateAuth)
         this.fireStore.doc(`${stateAuth.uid}/info`).valueChanges().subscribe((doc: User) => {
-          const accountStorage: User = doc;
-          console.log('-> ', accountStorage);
-          this.store.dispatch(new SetAccountAction(accountStorage));
+          this.userActive = doc;
+          this.store.dispatch(new SetAccountAction(doc));
         });
       else
+        this.userActive = null;
         this.loginObserver.unsubscribe();
 
       console.log('Listener. ', stateAuth);
@@ -45,6 +46,7 @@ export class AuthenticationService
   {
     this.fireAuth.auth.signOut();
     this.routerApp.navigate(['/login']);
+    this.store.dispatch(new UnsetAccountAction());
   }
 
   createUser(name: string, email: string, password: string)
@@ -61,5 +63,10 @@ export class AuthenticationService
         
         return stateAuth!=null;
       }));
+  }
+
+  getUserActive(): User
+  {
+    return { ...this.userActive };
   }
 }
